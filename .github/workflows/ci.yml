@@ -1,0 +1,43 @@
+name: defensive-lab-ci
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run unit and live integration tests
+        env:
+          PYTHONPATH: src
+        run: python -m unittest discover -s tests -v
+      - name: Execute isolated evidence pipeline
+        env:
+          PYTHONPATH: src
+        run: |
+          python -m soclab run --output artifacts
+          python -m soclab verify --events artifacts/events.jsonl --output artifacts/replay
+      - name: Verify report consistency
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p = Path('artifacts')
+          first = json.loads((p / 'findings.json').read_text())
+          replay = json.loads((p / 'replay' / 'findings.json').read_text())
+          assert first == replay, 'live and replay findings diverged'
+          assert any(f['category'] == 'password_spray_pattern' for f in first['findings'])
+          print('Replay consistent, expected detection present')
+          PY
+      - name: Retain sanitized lab output
+        uses: actions/upload-artifact@v4
+        with:
+          name: lab-output
+          path: artifacts/
+          retention-days: 7

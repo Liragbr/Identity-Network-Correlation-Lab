@@ -1,0 +1,25 @@
+title: Lab Identity Gateway Denied Authentication
+id: c1277650-02d5-48ce-940a-15dd80f3f9e1
+status: experimental
+description: >-
+  Base rule for the controlled SOC lab identity-gateway audit schema.
+  Requires field mapping for the target SIEM; not a generic Windows/AD rule.
+author: Gabriel Lira
+date: 2026-11-20
+references:
+  - https://attack.mitre.org/techniques/T1110/003/
+logsource:
+  category: authentication
+  product: soclab
+  service: identity-gateway
+detection:
+  selection:
+    event_type: auth
+    result: denied
+  condition: selection
+falsepositives:
+  - Misconfigured services repeatedly authenticating to one account
+level: informational
+tags:
+  - attack.credential-access
+  - attack.t1110.003

@@ -1,0 +1,113 @@
+{
+  "correlations": [
+    {
+      "assessment": "Correlated suspicious activity; identity compromise and lateral movement remain unproven.",
+      "category": "multi_signal_auth_and_discovery",
+      "evidence_ids": [
+        "evt-00012",
+        "evt-00013",
+        "evt-00014",
+        "evt-00015",
+        "evt-00016",
+        "evt-00017",
+        "evt-00018",
+        "evt-00019",
+        "evt-00020",
+        "evt-00021",
+        "evt-00022",
+        "evt-00023",
+        "evt-00024",
+        "evt-00025",
+        "evt-00026",
+        "evt-00027",
+        "evt-00028",
+        "evt-00029",
+        "evt-00030"
+      ],
+      "first_seen": "2026-11-20T14:02:42.602000Z",
+      "last_seen": "2026-11-20T14:02:42.607000Z",
+      "signal_categories": [
+        "password_spray_pattern",
+        "reverse_dns_discovery",
+        "service_connectivity_sweep"
+      ],
+      "src_ip": "127.0.0.2"
+    }
+  ],
+  "findings": [
+    {
+      "category": "password_spray_pattern",
+      "conclusion": "Suspicious behavior observed; successful unauthorized access is NOT established.",
+      "distinct_values": 8,
+      "event_count": 8,
+      "evidence_ids": [
+        "evt-00012",
+        "evt-00013",
+        "evt-00014",
+        "evt-00015",
+        "evt-00016",
+        "evt-00017",
+        "evt-00018",
+        "evt-00019"
+      ],
+      "first_seen": "2026-11-20T14:02:42.602Z",
+      "last_seen": "2026-11-20T14:02:42.606Z",
+      "mitre_technique": "T1110.003",
+      "src_ip": "127.0.0.2",
+      "successful_auth_from_same_origin_in_window": 0
+    },
+    {
+      "category": "reverse_dns_discovery",
+      "conclusion": "Suspicious behavior observed; successful unauthorized access is NOT established.",
+      "distinct_values": 7,
+      "event_count": 7,
+      "evidence_ids": [
+        "evt-00020",
+        "evt-00021",
+        "evt-00022",
+        "evt-00023",
+        "evt-00024",
+        "evt-00025",
+        "evt-00026"
+      ],
+      "first_seen": "2026-11-20T14:02:42.606Z",
+      "last_seen": "2026-11-20T14:02:42.607Z",
+      "mitre_technique": "T1018",
+      "src_ip": "127.0.0.2",
+      "successful_auth_from_same_origin_in_window": 0
+    },
+    {
+      "category": "service_connectivity_sweep",
+      "conclusion": "Suspicious behavior observed; successful unauthorized access is NOT established.",
+      "distinct_values": 4,
+      "event_count": 4,
+      "evidence_ids": [
+        "evt-00027",
+        "evt-00028",
+        "evt-00029",
+        "evt-00030"
+      ],
+      "first_seen": "2026-11-20T14:02:42.607Z",
+      "last_seen": "2026-11-20T14:02:42.607Z",
+      "mitre_technique": "T1046",
+      "src_ip": "127.0.0.2",
+      "successful_auth_from_same_origin_in_window": 0
+    }
+  ],
+  "metadata": {
+    "claims": "Detection signals only; not proof of compromise or lateral movement.",
+    "dataset_kind": "real_loopback_lab_traffic",
+    "rules": {
+      "distinct_accounts": 6,
+      "ptr_distinct": 5,
+      "service_distinct": 3,
+      "window_seconds": 120
+    }
+  },
+  "observed_events": 31,
+  "sources": {
+    "127.0.0.2": 19,
+    "127.0.0.3": 4,
+    "127.0.0.4": 8
+  }
+}
